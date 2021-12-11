@@ -27,8 +27,9 @@ public class GameInventoryController {
     }
 
     @PostMapping
-    public void registerNewItem(@RequestBody GameInventory gameInventory){
+    public GameInventory registerNewItem(@RequestBody GameInventory gameInventory){
         gameInventoryService.addNewItem(gameInventory);
+        return gameInventory;
     }
 
     @DeleteMapping(path ="{itemId}")
@@ -37,13 +38,13 @@ public class GameInventoryController {
     }
 
     @PutMapping(path = "{itemId}")
-    public void updateItem(
+    public GameInventory updateItem(
             @PathVariable("itemId") Long itemId,
             @RequestParam(required = false) String itemName,
             @RequestParam(required = false) Integer rarity,
             @RequestParam(required = false) String itemClass,
             @RequestParam(required = false) Integer count,
             @RequestParam(required = false) Integer level) {
-        gameInventoryService.updateInGameHero(itemId, itemName, level, itemClass, count, rarity);
+        return gameInventoryService.updateItem(itemId, itemName, level, itemClass, count, rarity);
     }
 }

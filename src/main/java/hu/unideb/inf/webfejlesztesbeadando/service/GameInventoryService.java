@@ -35,7 +35,7 @@ public class GameInventoryService {
     }
 
     @Transactional
-    public void updateInGameHero(Long itemId, String itemName, Integer level, String itemClass, Integer count, Integer rarity){
+    public GameInventory updateItem(Long itemId, String itemName, Integer level, String itemClass, Integer count, Integer rarity){
         GameInventory gameInventory = gameInventoryRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalStateException("Item with id "+ itemId + " does not exist!"));
 
@@ -54,5 +54,6 @@ public class GameInventoryService {
         if (level != null && level > 0 && !Objects.equals(gameInventory.getLevel(), level)){
             gameInventory.setLevel(level);
         }
+        return gameInventory;
     }
 }
